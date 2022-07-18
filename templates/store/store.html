@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<!-- Start Hero Section -->
+
+<div class="hero">
+    <div class="container"></div>
+    <h2 class="text-center">ALL YOU NEED</h2>
+</div>
+</div>
+
+<!-- End Hero Section -->
+
+<!-- filter -->
+
+<div class="untree_co-section product-section before-footer-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="border border-dark">
+
+                    <div class="category  p-5">
+                        <h3>category</h3>
+                        {% for category in links %}
+                        <div>
+                            <ul class="navbar-nav mb-2 mb-lg-0 ">
+                                <li><a class="dropdown-item" href="{{ category.get_url }}">{{ category.category_name }}</a></li>
+                            </ul>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="price p-5">
+                        <h3>Price</h3>
+                        <div>
+                            <input type="range" class="multi-range success" style="color:darkolivegreen;" value="{{FilterPrice}}" min="{{min_price.price__min}}" max="{{max_price.price__max}}" id="rangeInput" oninput="maxPrice.value=this.value" width="400px" />
+                        </div>
+                        <form action="" method="get">
+                            <b>₹</b><input type="number" id="maxPrice" readonly="" name="FilterPrice" onkeyup="rangeInput.value=this.value" value="{{FilterPrice}}{{minMaxPrice.price__min}}"    />
+                            <button type="submit" id="priceFilterBtn" class="tp-btn-square-lg">Filter</button>
+                        </form>  
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- filter end -->
+
+            <div class="col-md-9">
+                <div class="row">
+                    {% for product in products %}
+                    <!-- Start Column 1 -->
+                    <div class="col-12 col-md-4 col-lg-4 mb-5">
+                        <div class="product-card border border-3 p-3"><a href="{{ product.get_url }}">
+                                <img src="{{ product.images.url}}" class="img-fluid product-thumbnail">
+                                <h4 class="product-title">{{ product.product_name}}</h4>
+                                <strong class="product-price">₹{{ product.price}}</strong>
+                            </a>
+                            <div class="d-flex justify-content-between ">
+                                <a href="{% url 'add_cart' product.id %}" class="btn btn-sm btn-primary">Add to cart</a>
+                                <a href="{% url 'add_to_wishlist' product.id %}" class="btn btn-sm fa fa-heart"></a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    <!-- End Column 1 -->
+
+                </div>
+
+                <!-- paginator -->
+                <nav class="mt-4" aria-label="Page navigation Sample">
+                    {% if products.has_other_pages %}
+                    <ul class="pagination">
+                        {% if products.has_previous %}
+                        <li class="page-item"><a class="page-link"
+                                href="?page={{ products.previous_page_number}}">Previous</a></li>
+                        {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                        {% endif %}
+
+                        {% for i in products.paginator.page_range %}
+                        {% if products.number == i %}
+                        <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+                        {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                        {% endif %}
+                        {% endfor %}
+
+                        {% if products.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{ products.next_page_number}}">Next</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                        {% endif %}
+                    </ul>
+                    {% endif %}
+                </nav>
+                <!-- end paginator -->
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% load static %}
+
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <ul class="nav">
+      <!-- <li class="nav-item nav-profile">
+        <a href="#" class="nav-link">
+          <div class="nav-profile-image">
+            <img src="{% static 'admin_panel/assets/images/faces/face1.jpg' %}" alt="profile">
+            <span class="login-status online"></span>
+            
+          </div>
+          <div class="nav-profile-text d-flex flex-column">
+            <span class="font-weight-bold mb-2">David Grey. H</span>
+            <span class="text-secondary text-small">Project Manager</span>
+          </div>
+          <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+        </a>
+      </li> -->
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'dashboard' %}">
+          <span class="menu-title">Dashboard</span>
+          <i class="mdi mdi-home menu-icon"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"  href="{% url 'categories' %}"  >
+          <span class="menu-title">Categories</span>
+          <!-- <i class="menu-arrow"></i> -->
+          <!-- <i class="mdi mdi-crosshairs-gps menu-icon"></i> -->
+        </a>
+        <!-- <div class="collapse" id="ui-basic">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
+            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+          </ul>
+        </div> -->
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'sub_categories' %}">
+          <span class="menu-title">Subcategories</span>
+          <!-- <i class="mdi mdi-contacts menu-icon"></i> -->
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'products' %}">
+          <span class="menu-title">Products</span>
+          <!-- <i class="mdi mdi-format-list-bulleted menu-icon"></i> -->
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'customers' %}">
+          <span class="menu-title">Customers</span>
+          <!-- <i class="mdi mdi-chart-bar menu-icon"></i> -->
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'orders' %}">
+          <span class="menu-title">Orders</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'Review_Rating' %}">
+          <span class="menu-title">Review & Rating</span>
+        </a>
+      </li>
+      
+    </ul>
+  </nav>

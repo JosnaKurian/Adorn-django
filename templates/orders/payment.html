@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="untree_co-section">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6 mb-5 mb-md-0">
+                        <h2 class="h3 mb-3 text-black">Billing Details</h2>
+                        <div class="p-3 p-lg-5 border bg-white">
+                            <div class="card">
+                                <h5 class="card-header">Shipping Address</h5>
+                                <div class="card-body">
+                                    <p class="card-text">{{order.full_name}}</p>
+                                    <p class="card-text">{{order.full_address}}</p>
+                                    <p class="card-text">{{order.city}},{{order.state}}</p>
+                                    <p class="card-text">{{order.country}}</p>
+                                    <p class="card-text">{{order.email}}</p>
+                                    <p class="card-text">{{order.phone}}</p>
+                                    {% if order.order_note %}
+                                        <b>Order Note</b>{{order.order_note}}
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                            <div class="card">
+                                <h5 class="card-header">Payment Method</h5>
+                                <div class="card-body">
+                                    <p class="card-text">Razorpay</p>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <h5 class="card-header">Review Products</h5>
+                                <div class="card-body">
+                                    <table class="table site-block-order-table mb-5">
+                                        <thead>
+                                          <th></th>
+                                          <th>Product</th>
+                                          <th>Quantity</th>
+                                          <th>Total Price</th>
+                                        </thead>
+                                        <tbody>
+                                          {% for cart_item in cart_items %}
+                                          <tr>
+                                            <td><img src="{{ cart_item.product.images.url}}" style="width:90px; height:90px;"></td>
+                                            <td>{{ cart_item.product.product_name}}</td>
+                                            <td>{{ cart_item.quantity }}</td>
+                                            <td>{{ cart_item.sub_total }}</td>
+                                          </tr>
+                                          {% endfor %}
+                                        </tbody>
+                                      </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <div class="row mb-5">
+                            <div class="col-md-12">
+                                <h2 class="h3 mb-3 text-black">Your Order</h2>
+                                <div class="p-3 p-lg-5 border bg-white">
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <span class="text-black">Subtotal</span>
+                                        </div>
+                                        <div class="col-md-6 text-right">
+                                            <strong class="text-black">{{ total }}</strong>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <span class="text-black">Tax</span>
+                                        </div>
+                                        <div class="col-md-6 text-right">
+                                            <strong class="text-black">{{ tax }}</strong>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-5">
+                                        <div class="col-md-6">
+                                            <span class="text-black">Grand Total</span>
+                                        </div>
+                                        <div class="col-md-6 text-right">
+                                            <strong class="text-black">{{ grand_total }}</strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button  id="rzp-button1" type="submit" name="submit"
+                                                class="btn btn-black btn-sm py-3 btn-block">Pay with RazorPay</button>
+                                                <!-- <button id="rzp-button1" >pay</button> -->
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+            
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    var csrftoken = getCookie('csrftoken');
+    var url = "{% url 'payment' %}"
+    var orderID = "{{order.order_number}}"
+    var payment_method = "Razorpay"
+    var amount_paid = "{{order.order_total}}"
+    var status="success"
+    var redirect_url="{% url 'order_complete' %}"
+
+    var options = {
+        "key": "rzp_test_bWHASBQJ20jHss", // Enter the Key ID generated from the Dashboard
+        "amount": "{{payment.amount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "INR",
+        "name": "Adorn",
+        "description": "Purchases",
+        "image": "https://example.com/your_logo",
+        "order_id": "{{payment.id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 2
+        "handler": function (response){
+            sendData();
+            function sendData(){
+                fetch(url,{
+                    method : "POST",
+                    headers : {
+                        "Content-type":"application/json",
+                        "X-CSRFToken": csrftoken,
+                    },
+                    body:JSON.stringify({
+                        order_id:orderID,
+                        razorpay_payment_id:response.razorpay_payment_id,
+                        razorpay_order_id:response.razorpay_order_id,
+                        razorpay_signature:response.razorpay_signature,
+                        payment_method:payment_method,
+                        amount_paid:amount_paid,
+                        status:status,
+                    }),
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    window.location.href = redirect_url + '?order_number='+data.order_number +'&payment_id='+data.payment_id;
+                });
+            }
+
+        },
+        "prefill": {
+            "name": "Gaurav Kumar",
+            "email": "gaurav.kumar@example.com",
+            "contact": "9999999999"
+        },
+        "notes": {
+            "address": "Razorpay Corporate Office"
+        },
+        "theme": {
+            "color": "#3399cc"
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.on('payment.failed', function (response){
+            alert(response.error.code);
+            alert(response.error.description);
+            alert(response.error.source);
+            alert(response.error.step);
+            alert(response.error.reason);
+            alert(response.error.metadata.order_id);
+            alert(response.error.metadata.payment_id);
+    });
+    document.getElementById('rzp-button1').onclick = function(e){
+        rzp1.open();
+        e.preventDefault();
+    }
+    </script>
+{% endblock %}

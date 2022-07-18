@@ -1,0 +1,79 @@
+{% extends 'admin_base/main.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- partial -->
+<div class="container-fluid page-body-wrapper">
+  <!-- partial:partials/_sidebar.html -->
+  {% include 'admin_base/sidebar.html' %}
+  <!-- partial -->
+  <div class="main-panel">
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h3 class="page-title">Product details</h3>
+        <form action="{% url 'products' %}" class="d-flex" method="GET">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
+          <button class="btn btn-outline-success" type="submit">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 50 50" width="24px" height="24px">
+              <path
+                d="M 21 3 C 11.601563 3 4 10.601563 4 20 C 4 29.398438 11.601563 37 21 37 C 24.355469 37 27.460938 36.015625 30.09375 34.34375 L 42.375 46.625 L 46.625 42.375 L 34.5 30.28125 C 36.679688 27.421875 38 23.878906 38 20 C 38 10.601563 30.398438 3 21 3 Z M 21 7 C 28.199219 7 34 12.800781 34 20 C 34 27.199219 28.199219 33 21 33 C 13.800781 33 8 27.199219 8 20 C 8 12.800781 13.800781 7 21 7 Z" />
+            </svg>
+            </i></button>
+        </form>
+        <div>
+          <a type="button" class="btn btn-info add-new" href="{% url 'add_products' %}"><i class="fa fa-plus"></i>Add New </a>
+        </div>
+      </div>
+      <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th> sl.No</th>
+                  <th> Category</th>
+                  <th> Sub Category</th>
+                  <th> Product</th>
+                  <th> slug </th>
+                  <th> Description </th>
+                  <th> Price</th>
+                  <th> Stock </th>
+                  <th> is available </th>
+                  <th> created date </th>
+                  <th> modified date </th>
+                  <th> Image </th>
+                  <th> Edit </th>
+                  <th> Delete </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for i in Product %}
+                <tr>
+                  <td><span class="pl-2">{{forloop.counter}}</span></td>
+                  <td>{{i.category }}</td>
+                  <td>{{i.sub_category }}</td>
+                  <td>{{i.product_name}}</td>
+                  <td>{{i.slug}}</td>
+                  <td>{{i.description}}</td>
+                  <td>{{i.price}}</td>
+                  <td>{{i.stock}}</td>
+                  <td>{{i.is_available}}</td>
+                  <td>{{i.created_date}}</td>
+                  <td>{{i.modified_date}}</td> 
+                  <td><img src="{{i.images.url}}" alt=""></td>           
+                  <td><a href="{% url 'edit_products' i.slug %}"><i style="margin-left:0px;" class="fa fa-pencil"></i></a></td>
+                  <td><a href="{% url 'delete_products' i.id %}"><i style="margin-left:0px;" class="fa fa-trash"></i></a></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+           </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  {% endblock %}

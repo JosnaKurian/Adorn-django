@@ -1,0 +1,159 @@
+{% load static %}
+<!-- Start Header/Navigation -->
+<nav class="custom-navbar navbar navbar navbar-expand-lg navbar-light bg-light" arial-label="Furni navigation bar">
+
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'images/logo.png' %}"><span></span></a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni"
+            aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsFurni">
+
+            <div class="mx-auto">
+                <form action="{% url 'search' %}" class="d-flex" method="GET">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                        name="keyword">
+                    <button class="btn btn-outline-success" type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 50 50" width="24px"
+                            height="24px">
+                            <path
+                                d="M 21 3 C 11.601563 3 4 10.601563 4 20 C 4 29.398438 11.601563 37 21 37 C 24.355469 37 27.460938 36.015625 30.09375 34.34375 L 42.375 46.625 L 46.625 42.375 L 34.5 30.28125 C 36.679688 27.421875 38 23.878906 38 20 C 38 10.601563 30.398438 3 21 3 Z M 21 7 C 28.199219 7 34 12.800781 34 20 C 34 27.199219 28.199219 33 21 33 C 13.800781 33 8 27.199219 8 20 C 8 12.800781 13.800781 7 21 7 Z" />
+                        </svg>
+                        </i></button>
+                </form>
+
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0 ">
+                    <!-- <li class="nav-item dropdown"> -->
+                    {% for category in links %}
+                    <a class="nav-link " href="{{ category.get_url }}" id="dropdownMenuLink" role="button"
+                        aria-expanded="false">
+                        {{ category.category_name }}
+                    </a>
+                    
+                    <!-- <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Living room Furniture</a></li>
+                        <li><a class="dropdown-item" href="#">Bedroom Furniture</a></li>
+                        <li><a class="dropdown-item" href="#">Dining & Kitchen Furniture</a></li>
+                    </ul> -->
+                    {% endfor %}
+
+                    <!-- <li class="nav-item dropdown">
+                                {% for i in sub_links %}
+                                {% if i.sub_category == Sub_Category %}
+                                <a href="{{ i.get_url }}" class="dropdown-item">{{ i.sub_category_name}}</a>
+                                {% endif %}
+                                {% endfor %}
+
+                            </li> -->
+
+                    <!-- <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        HOME FURNISHINGS
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Bedding</a></li>
+                        <li><a class="dropdown-item" href="#">Curtains</a></li>
+                        <li><a class="dropdown-item" href="#">Cushions & Covers</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        HOME DECOR
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Clocks</a></li>
+                        <li><a class="dropdown-item" href="#">Candles</a></li>
+                        <li><a class="dropdown-item" href="#">Garden</a></li>
+                    </ul>
+                </li>
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        TABLEWARE & KITCHENWARE
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Drinkware</a></li>
+                        <li><a class="dropdown-item" href="#">Crockery</a></li>
+                        <li><a class="dropdown-item" href="#">Table Essentials</a></li>
+                    </ul>
+                </li>  -->
+
+                </ul>
+            </div>
+
+             <!-- icons -->
+
+        <div class=" navbar-nav mb-2 mb-md-0 ">
+            {% if user_id is not None %}
+            <li><a class="nav-link" href="{% url 'login' %}">
+                    <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M17 19V17C17 15.9391 16.5786 14.9217 15.8284 14.1716C15.0783 13.4214 14.0609 13 13 13H5C3.93913 13 2.92172 13.4214 2.17157 14.1716C1.42143 14.9217 1 15.9391 1 17V19"
+                            stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M9 9C11.2091 9 13 7.20914 13 5C13 2.79086 11.2091 1 9 1C6.79086 1 5 2.79086 5 5C5 7.20914 6.79086 9 9 9Z"
+                            stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </a></li>
+            {% else %}
+            <li><a class="nav-link" href="{% url 'profile' %}">
+                    <svg width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M17 19V17C17 15.9391 16.5786 14.9217 15.8284 14.1716C15.0783 13.4214 14.0609 13 13 13H5C3.93913 13 2.92172 13.4214 2.17157 14.1716C1.42143 14.9217 1 15.9391 1 17V19"
+                            stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M9 9C11.2091 9 13 7.20914 13 5C13 2.79086 11.2091 1 9 1C6.79086 1 5 2.79086 5 5C5 7.20914 6.79086 9 9 9Z"
+                            stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg> <br>
+                    <a href="{% url 'profile' %}">{{user.first_name}}</a>
+                </a></li>
+            {% endif %}
+            {% if user_id is not None %}
+            <li><a class="nav-link" href="{% url 'login' %}">
+                    <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
+                        clip-rule="evenodd">
+                        <path
+                            d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402m5.726-20.583c-2.203 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248-3.183 0-6.281 2.187-6.281 6.191 0 4.661 5.571 9.429 12 15.809 6.43-6.38 12-11.148 12-15.809 0-4.011-3.095-6.181-6.274-6.181" />
+                    </svg>
+                </a></li>
+            {% else %}
+            <li><a class="nav-link" href="{% url 'wish_list' %}">
+                <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
+                    clip-rule="evenodd">
+                    <path
+                        d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402m5.726-20.583c-2.203 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248-3.183 0-6.281 2.187-6.281 6.191 0 4.661 5.571 9.429 12 15.809 6.43-6.38 12-11.148 12-15.809 0-4.011-3.095-6.181-6.274-6.181" />
+                </svg>
+            </a></li>
+            {% endif %}
+            <li><a class="nav-link" href="{% url 'cart' %}">
+                    <svg width="24" height="23" viewBox="0 0 24 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z"
+                            stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z"
+                            stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6"
+                            stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg><span>{{ cart_count }}</span>
+
+                </a></li> 
+        </div>
+
+        </div>
+
+       
+    </div>
+
+
+
+</nav>
+<!-- End Header/Navigation -->
