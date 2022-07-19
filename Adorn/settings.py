@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'admin_panel',
     'wishlist',
     'orders',
-    
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -161,6 +161,17 @@ EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_QUERYSTRING_AUTH = False
+
+AWS_S3_FILE_OVERWRITE = False
+
+AWS_ACCESS_KEY_ID = 'AKIAVF5I6FIXI23OLH7V'
+
+AWS_SECRET_ACCESS_KEY = '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'
+
+AWS_STORAGE_BUCKET_NAME = 'adorn-bucket'
 
 KEY = config('KEY')
 SECRET = config('SECRET')

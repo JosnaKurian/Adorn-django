@@ -25,7 +25,7 @@ urlpatterns = [
 
     path('orders/',views.orders,name ='orders'),
     path('orders/update_orders/<int:id>/',views.update_orders,name ='update_orders'),
-    path('orders/order_details/<int:id>/',views.order_details,name ='order_details'),
+    path('orders/order_details/<int:order_id>/',views.order_details,name ='order_details'),
 
     path('Review_Rating/',views.Review_Rating,name ='Review_Rating'),
     path('Review_Rating/delete_Review_Rating/<int:id>/',views.delete_Review_Rating,name ='delete_Review_Rating'),

@@ -11,6 +11,7 @@ from .forms import CategoryForm, Sub_CategoryForm, ProductForm, OrderForm
 from django.template.defaultfilters import slugify
 from orders .models import Order, OrderProduct
 from django.contrib.auth.decorators import login_required
+from store.models import ProductGallery
 
 
 # Create your views here.
@@ -33,6 +34,13 @@ def admin_login(request):
 @login_required(login_url = 'admin_login')
 def dashboard(request):
     return render(request,'admin_panel/dashboard.html')
+
+
+@login_required(login_url = 'admin_login')
+def logout(request):
+    auth.logout(request)
+    messages.success(request,'You are logged out.')
+    return redirect('admin_login')
 
 
 def categories(request):
@@ -183,12 +191,13 @@ def add_products(request):
                 product.slug = slug
                 
                 images = request.FILES.getlist('images')
+                print(images)
                 for image in images:
                     ProductGallery.objects.create(
                         image=image,
                         product = product, #add images using for loop in list
                 )
-                images.save()
+                
                 product.save()
                 return redirect('products')
         return render(request,'admin_panel/add_product.html',{'form':form})
@@ -285,10 +294,12 @@ def update_orders(request,id):
     }                     
     return render(request,'admin_panel/update_order.html',context)
 
-def order_details(request,id):
-    order = Order.objects.get(id=id)
+def order_details(request,order_id):
+    order_detail = OrderProduct.objects.filter(order__order_number=order_id)
+    order = Order.objects.get(order_number=order_id)
     context={
-        'Order' :order,
+        'order_detail':order_detail,
+        'order':order,
     }
     return render(request,'admin_panel/order_details.html',context)
 
