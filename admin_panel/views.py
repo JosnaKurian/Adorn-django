@@ -21,7 +21,7 @@ def admin_login(request):
         password = request.POST['password']
         user = auth.authenticate(email=email,password=password)
         
-        if user.is_superuser == True:
+        if user.is_superadmin == True:
               request.session['email']=email
               return redirect(dashboard)
         else:
