@@ -354,6 +354,8 @@ def delete_Review_Rating(request,id):
     reviewRating.delete()
     return redirect('Review_Rating')
 
+#heloooooooooooooooooooooooo
+
 @login_required(login_url = 'admin_login')
 def payments(request):
     if 'keyword' in request.GET:
