@@ -243,7 +243,7 @@ a.more {
 
 .btn:hover {
   color: #ffffff;
-  background: #73ead3;
+  background: #3b5d50;
   border-color: #222222;
 }
 
@@ -255,24 +255,24 @@ a.more {
 }
 
 .btn.btn-primary {
-  background: #3b5d50;
-  border-color: #3b5d50;
+  background: #ffffff;
+  border-color: #314d43;
 }
 
 .btn.btn-primary:hover {
-  background: #314d43;
+  background: #ffffff;
   border-color: #314d43;
 }
 
 .btn.btn-secondary {
   color: #2f2f2f;
-  background: #f9bf29;
-  border-color: #f9bf29;
+  background: #314d43;
+  border-color: #314d43;
 }
 
 .btn.btn-secondary:hover {
-  background: #f8b810;
-  border-color: #f8b810;
+  background: #314d43;
+  border-color: #314d43;
 }
 
 .btn.btn-white-outline {
@@ -304,7 +304,7 @@ a.more {
 }
 
 .product-section .product-item .product-thumbnail {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   position: relative;
   top: 0;
   -webkit-transition: .3s all ease;

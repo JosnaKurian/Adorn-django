@@ -1,6 +1,27 @@
-{% extends 'base.html'%}
-
-{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Adorn Admin</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="{% static 'admin_panel/assets/vendors/mdi/css/materialdesignicons.min.css'%}">
+    <link rel="stylesheet" href="{% static 'admin_panel/assets/vendors/css/vendor.bundle.base.css' %}">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="{% static 'admin_panel/assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'admin_panel/assets/css/custom.css' %}">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="{% static 'admin_panel/assets/images/favicon.ico' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
+  <body>
 
 <form action="{% url 'admin_login' %}" method="POST">
     {% csrf_token %}
@@ -47,4 +68,5 @@
         </div>
       </section>
 
-{% endblock %}
+</body>
+</html>

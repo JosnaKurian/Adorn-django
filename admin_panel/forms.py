@@ -40,9 +40,9 @@ class ProductForm(forms.ModelForm):
         fields = ['category', 'sub_category', 'product_name', 'description','price','stock', 'is_available', 'images']
 
         widgets = {
-            "primary_image":forms.ClearableFileInput(attrs={
+            "images":forms.ClearableFileInput(attrs={
                 "class":"form-control",
-                "name":"primary_image",
+                "name":"images",
                 "type":"file"
             })
         }

@@ -11,8 +11,9 @@
   <div class="main-panel">
     <div class="content-wrapper">
       <div class="page-header">
-        <h3 class="page-title">Product Categories</h3>
-        <form action="{% url 'categories' %}" class="d-flex" method="GET">
+        <h3 class="page-title">Order Details</h3>
+        <form action="{% url 'payments' %}" class="d-flex" method="GET">
+          {% include 'includes/alert.html' %}
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="keyword">
           <button class="btn btn-outline-success" type="submit">
             <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 50 50" width="24px" height="24px">
@@ -21,41 +22,35 @@
             </svg>
             </i></button>
         </form>
-        <div>
-          <a type="button" class="btn btn-info add-new" href="{% url 'add_categories' %}"><i class="fa fa-plus"></i>Add New </a>
-        </div>
       </div>
       <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
+            <div class="table-responsive">
             <table class="table table-bordered">
               <thead>
                 <tr>
                   <th> sl.No</th>
-                  <th> Category</th>
-                  <th> slug </th>
-                  <th> Image </th>
-                  <th> Edit </th>
-                  <th> Delete </th>
+                  <th> Payment ID</th>
+                  <th> User Name</th>
+                  <th> Total Amount</th>
+                  <th> Status</th>
                 </tr>
               </thead>
               <tbody>
-                {% for i in Category %}
+                {% for i in Payment %}
                 <tr>
                   <td><span class="pl-2">{{forloop.counter}}</span></td>
-                  <td>{{i.category_name }}</td>
-                  <td>{{i.slug}}</td>
-                  {% if i.cat_image %}
-                  <td><img src="{{i.cat_image.url}}" alt=""></td>
-                  {% else %}
-                  <td><img src="" alt="no image"></td>
-                  {% endif %}
-                  <td><a href="{% url 'edit_categories' i.slug %}"><i style="margin-left:0px;" class="fa fa-pencil"></i></a></td>
-                  <td><a href="{% url 'delete_categories' i.id %}"><i style="margin-left:0px;" class="fa fa-trash"></i></a></td>
+                  <td>{{i.payment_id }}</td>                
+                  <td>{{i.user}}</td>
+                  <td>{{i.amount_paid}}</td>
+                  <td>{{i.status }}</td>
+                          
                 </tr>
                 {% endfor %}
               </tbody>
             </table>
+           </div>
           </div>
         </div>
       </div>

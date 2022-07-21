@@ -29,11 +29,11 @@
         <div class="product-card border border-3 p-3 "><a href="{{ wishlist.product.get_url }}">
             <img src="{{ wishlist.product.images.url}}" class="img-fluid product-thumbnail">
             <h4 class="product-title">{{ wishlist.product_name}}</h4>
-            <strong class="product-price">₹{{wishlist.product.price}}</strong>
+            <h5><strong class="product-price">₹{{wishlist.product.price}}</strong></h5>
           </a>
           <div class="d-flex justify-content-between ">
             <a href="{% url 'add_cart' wishlist.product.id %}" class="btn btn-sm btn-primary">Add to cart</a>
-            <a href="{% url 'remove_wishlist' wishlist.product.id %}" class="btn btn-sm fa fa-heart"></a>
+            <a href="{% url 'remove_wishlist' wishlist.product.id %}" class="btn  btn-primary ">Remove from wishlist</a>
           </div>
         </div>
       </div>

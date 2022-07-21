@@ -170,3 +170,26 @@ def order_complete(request):
         return render(request, 'orders/order_complete.html',context)
     except(Payment.DoesNotExist,Order.DoesNotExist):
         return redirect('home')
+
+
+def cancel_order(request):
+    return render(request,'orders/cancel_order.html')
+
+def delete_order(request,order_id):
+    order_number = request.GET.get('order_number')
+    try:
+        order = Order.objects.get(order_number=order_number, is_ordered=True)
+        ordered_products = OrderProduct.objects.filter(order_id=order.id)
+
+        subtotal = 0
+        for i in ordered_products:
+            subtotal += i.product_price * i.quantity
+
+        context ={
+            'order':order,
+            'ordered_products':ordered_products,
+            'order_number':order.order_number,
+            'subtotal':subtotal,
+        }
+    except:
+        pass

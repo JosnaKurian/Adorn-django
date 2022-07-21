@@ -11,7 +11,7 @@
 				<div class="col-lg-5">
 					<div class="intro-excerpt">
 						<h2 class="mb-4">Adorn your space with little luxuries that make you happy.</h2>
-						<p><a href="{% url 'all_products'  %}" class="btn btn-secondary me-2">Shop Now</a>
+						<p><a href="{% url 'all_products'  %}" class="btn btn-primary me-2">Shop Now</a>
 								
 					</div>
 				</div>
@@ -32,9 +32,13 @@
 		<div class="container">
 			<div class="row">
 				{% for category in categories %}
-				<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+				<div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0" >
 					<a class="product-item" href="{{ category.get_url }}">
-						<img src="{{ category.cat_image.url}}" class="img-fluid product-thumbnail">
+						{% if category.cat_image %}
+						<img src="{{ category.cat_image.url}}" class="img-fluid product-thumbnail" >
+						{% else %}
+                        <td><img src="" alt="no image"></td>
+						{% endif %}
 						<h3 class="product-title">{{category.category_name }}</h3>
 						<span class="icon-cross">
 							<img src="{% static 'images/cross.svg' %}" class="img-fluid">
@@ -124,7 +128,7 @@
 					<div class="imgs-grid">
 						<div class="grid grid-1"><img src="{% static 'images/img-grid-1.jpg' %}" alt="Untree.co"></div>
 						<div class="grid grid-2"><img src="{% static 'images/img-grid-2.jpg' %}" alt="Untree.co"></div>
-						<div class="grid grid-3"><img src="{% static 'images/img-grid-3.jpg' %}" alt="Untree.co"></div>
+						<div class="grid grid-3"><img src="{% static 'images/flower_vase.jpg' %}" alt="Untree.co"></div>
 					</div>
 				</div>
 				<div class="col-lg-5 ps-lg-5">
@@ -139,7 +143,7 @@
 						<li>Donec vitae odio quis nisl dapibus malesuada</li>
 						<li>Donec vitae odio quis nisl dapibus malesuada</li>
 					</ul>
-					<p><a herf="#" class="btn">Explore</a></p>
+					<p><a herf="{% url 'all_products'  %}" class="btn btn-primary">Explore</a></p>
 				</div>
 			</div>
 		</div>
@@ -147,7 +151,7 @@
 	<!-- End We Help Section -->
 
 	<!-- Start Popular Product -->
-	<div class="popular-product">
+	<!-- <div class="popular-product">
 		<div class="container">
 			<div class="row">
 
@@ -192,7 +196,7 @@
 
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<!-- End Popular Product -->
 
 	

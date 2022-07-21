@@ -47,17 +47,17 @@
 						<h4 class="price"><span>₹{{ single_product.price }}</span></h4>
 						<div class="action">
 							{% if single_product.stock <= 0 %} <h5 class="text-danger">Out of Stock</h5>
-								{% else %}
+							{% else %}
 								{% if in_cart %}
-								<a href="{% url 'cart' %}"><button class="add-to-cart btn btn-success" type="button">Go
+								    <a href="{% url 'cart' %}"><button class=" btn btn-success" type="button">Go
 										to cart</button></a>
-								{% else %}
-								<a href="{% url 'add_cart' single_product.id %}"><button
-										class="add-to-cart btn btn-default" type="button">Add to cart</button></a>
+								 {% else %}
+								    <a href="{% url 'add_cart' single_product.id %}"><button
+										class="add-to-cart btn btn-primary" type="button">Add to cart</button></a>
 								{% endif %}
-								{% endif %}
+							{% endif %}
 
-								<a href="{% url 'add_to_wishlist' single_product.id %}"><button class="like btn btn-default" type="button"><span
+								<a href="{% url 'add_to_wishlist' single_product.id %}"><button class="like btn btn-primary" type="button"><span
 											class="fa fa-heart"></span></button></a>
 
 						</div>
