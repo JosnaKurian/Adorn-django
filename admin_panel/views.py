@@ -42,7 +42,7 @@ def dashboard(request):
     user=request.user
     sum=0
     for x in number:
-        sum+=x.product_price
+        sum += x.product_price
 
     pro_count=Product.objects.all().count()
     
@@ -354,7 +354,6 @@ def delete_Review_Rating(request,id):
     reviewRating.delete()
     return redirect('Review_Rating')
 
-#heloooooooooooooooooooooooo
 
 @login_required(login_url = 'admin_login')
 def payments(request):
@@ -364,12 +363,12 @@ def payments(request):
             payment = Payment.objects.filter(Q(status__icontains=keyword))
         if not payment.exists():
             messages.error(request,'No matching item found.')
-            return redirect(request,'admin_panel/payment.html')
+            return redirect(request,'admin_panel/payments.html')
     else:
         payment = Payment.objects.all()
     context ={
 
        'Payment': payment,
     }
-    return render(request,'admin_panel/payment.html',context)
+    return render(request,'admin_panel/payments.html',context)
 

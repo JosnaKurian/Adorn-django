@@ -22,7 +22,7 @@
             <div class="col-xl-3">
                 <div class="border border-dark">
 
-                    <div class="category  p-5">
+                    <!-- <div class="category  p-5">
                         <h3>Sub Category</h3>
                         {% for sub_category in sub_links %}  
                           {% if sub_category.Category == categories%}
@@ -33,15 +33,29 @@
                         </div> 
                           {% endif %}    
                         {% endfor %}
+                    </div> -->
+
+
+
+
+                    <div class="category  p-5">
+                        <h3>Filter By Category</h3>
+                    {% for sub_category in sub_cat %}
+                        <div>
+                            <ul class="navbar-nav mb-2 mb-lg-0 ">
+                                <li><a class="dropdown-item" href="{{ sub_category.get_url }}"> {{ sub_category.sub_category_name }}</a></li>
+                            </ul>
+                        </div> 
+                    {% endfor %}
                     </div>
 
                     <div class="price p-5">
-                        <h3>Price</h3>
+                        <h3>Filter By Price</h3>
                         <div>
                             <input type="range" class="multi-range success" style="color:darkolivegreen;" value="{{FilterPrice}}" min="{{min_price.price__min}}" max="{{max_price.price__max}}" id="rangeInput" oninput="maxPrice.value=this.value" width="400px" />
                         </div>
                         <form action="" method="get">
-                            <b>₹</b><input type="number" id="maxPrice" readonly="" name="FilterPrice" onkeyup="rangeInput.value=this.value" value="{{FilterPrice}}{{minMaxPrice.price__max}}"    />
+                            <b>₹</b><input type="number" id="maxPrice" readonly="" name="FilterPrice" onkeyup="rangeInput.value=this.value" value="{{FilterPrice}}{{minMaxPrice.price__min}}"/>
                             <button type="submit" id="priceFilterBtn" class="tp-btn-square-lg">Filter</button>
                         </form>  
                     </div>

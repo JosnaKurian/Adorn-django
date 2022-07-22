@@ -28,10 +28,10 @@
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0 ">
                     <!-- <li class="nav-item dropdown"> -->
                     {% for category in links %}
-                    <a class="nav-link " href="{{ category.get_url }}" id="dropdownMenuLink" role="button"
+                    <h6><a class="nav-link " href="{{ category.get_url }}" id="dropdownMenuLink" role="button"
                         aria-expanded="false">
                         {{ category.category_name }}
-                    </a>
+                    </a></h6>
                     {% endfor %}
                     <!-- <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="#">Living room Furniture</a></li>

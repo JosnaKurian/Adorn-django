@@ -15,10 +15,6 @@
 							<div class="tab-pane active mainImage" id="pic-1">
 								<img src="{{ single_product.images.url }}" />
 							</div>
-							<!-- <div class="tab-pane" id="pic-2"><img src="http://placekitten.com/400/252" /></div>
-						  <div class="tab-pane" id="pic-3"><img src="http://placekitten.com/400/252" /></div>
-						  <div class="tab-pane" id="pic-4"><img src="http://placekitten.com/400/252" /></div>
-						  <div class="tab-pane" id="pic-5"><img src="http://placekitten.com/400/252" /></div> -->
 						</div>
 						<ul class="thumb">
 						  <li>
@@ -31,6 +27,7 @@
 
 					</div>
 					<div class="details col-md-6">
+						<div class=" d-flex flex-column flex-grow-1">
 						<h3 class="product-title">{{ single_product.product_name }}</h3>
 						<div class="rating-star">
 							<span>
@@ -45,8 +42,9 @@
 						
 						<p class="product-description">{{ single_product.description }}</p>
 						<h4 class="price"><span>₹{{ single_product.price }}</span></h4>
+					    </div>
 						<div class="action">
-							{% if single_product.stock <= 0 %} <h5 class="text-danger">Out of Stock</h5>
+							{% if single_product.stock <= 0  %} <h5 class="text-danger">Out of Stock</h5>
 							{% else %}
 								{% if in_cart %}
 								    <a href="{% url 'cart' %}"><button class=" btn btn-success" type="button">Go
@@ -56,10 +54,13 @@
 										class="add-to-cart btn btn-primary" type="button">Add to cart</button></a>
 								{% endif %}
 							{% endif %}
-
+								{% if in_wish_list %}
+								<a href="{% url 'remove_wishlist' wishlist.product.id %}"><button class="like btn btn-primary" type="button"><span
+											class="fa-solid fa-heart"></span></button></a>
+								{% else %}
 								<a href="{% url 'add_to_wishlist' single_product.id %}"><button class="like btn btn-primary" type="button"><span
 											class="fa fa-heart"></span></button></a>
-
+								{% endif %}
 						</div>
 					</div>
 				</div>

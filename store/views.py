@@ -12,38 +12,76 @@ from orders.models import OrderProduct
 from django.db.models import Max, Min
 
 # Create your views here.
+# def shop(request, category_slug=None, sub_category_slug=None):
+#     categories = None
+#     sub_categories = None
+#     products = None
+    
+#     if category_slug != None:
+#         categories = get_object_or_404(Category, slug=category_slug)
+#         cat = Category.objects.all().filter(slug=category_slug)
+#         products = Product.objects.filter(category=categories, is_available=True)
+#         paginator = Paginator(products, 6)
+#         page = request.GET.get('page')    
+#         paged_products = paginator.get_page(page)
+
+#         if sub_category_slug != None:
+#            sub_categories = get_object_or_404(Sub_Category, slug=sub_category_slug)
+#            products = Product.objects.filter( sub_category=sub_categories, is_available=True)
+#            paginator = Paginator(products, 6)
+#            page = request.GET.get('page')
+#            paged_products = paginator.get_page(page)
+
+#     else:
+#         products = Product.objects.all().filter(is_available=True).order_by('id')
+#         paginator = Paginator(products, 6)
+#         page = request.GET.get('page')
+#         paged_products = paginator.get_page(page)
+
+#     context ={ 
+#         'products': paged_products,
+#         'category': categories,
+#         'cat':cat,
+
+#      }
+#     return render(request,'store/category.html',context)
+
+
 def shop(request, category_slug=None, sub_category_slug=None):
     categories = None
     sub_categories = None
     products = None
     
+    category = get_object_or_404(Category, slug=category_slug)
+    sub_cat = Sub_Category.objects.filter(category=category)
     if category_slug != None:
         categories = get_object_or_404(Category, slug=category_slug)
         cat = Category.objects.all().filter(slug=category_slug)
         products = Product.objects.filter(category=categories, is_available=True)
         paginator = Paginator(products, 6)
-        page = request.GET.get('page')
+        page = request.GET.get('page')    
         paged_products = paginator.get_page(page)
-
+    
         if sub_category_slug != None:
-           sub_categories = get_object_or_404(Sub_Category, slug=sub_category_slug)
-           products = Product.objects.filter( sub_category=sub_categories, is_available=True)
-           paginator = Paginator(products, 6)
-           page = request.GET.get('page')
-           paged_products = paginator.get_page(page)
+            sub_categories = get_object_or_404(Sub_Category, slug=sub_category_slug)
+            products = Product.objects.filter( sub_category=sub_categories, is_available=True)
+            paginator = Paginator(products, 6)
+            page = request.GET.get('page')
+            paged_products = paginator.get_page(page)
 
     else:
         products = Product.objects.all().filter(is_available=True).order_by('id')
         paginator = Paginator(products, 6)
         page = request.GET.get('page')
         paged_products = paginator.get_page(page)
-
+    
+        
     context ={ 
         'products': paged_products,
+        'sub_cat': sub_cat,
         'category': categories,
-        'cat':cat,
 
-     }
+    }
     return render(request,'store/category.html',context)
 
 
@@ -51,6 +89,7 @@ def all_products(request):
     products = Product.objects.all().filter(is_available=True).order_by('id')
     min_price = Product.objects.all().aggregate(Min('price'))
     max_price = Product.objects.all().aggregate(Max('price'))
+    category = Category.objects.all()
 
     FilterPrice = request.GET.get('FilterPrice')
     if FilterPrice:
@@ -69,6 +108,7 @@ def all_products(request):
         'min_price': min_price,
         'max_price': max_price,
         'FilterPrice': FilterPrice,
+        'category':category,
         
     }
     return render(request,'store/store.html',context)

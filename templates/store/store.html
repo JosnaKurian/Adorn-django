@@ -22,12 +22,23 @@
             <div class="col-xl-3">
                 <div class="border border-dark">
 
-                    <div class="category  p-5">
+                    <!-- <div class="category  p-5">
                         <h3>category</h3>
                         {% for category in links %}
                         <div>
                             <ul class="navbar-nav mb-2 mb-lg-0 ">
                                 <li><a class="dropdown-item" href="{{ category.get_url }}">{{ category.category_name }}</a></li>
+                            </ul>
+                        </div>
+                        {% endfor %}
+                    </div> -->
+
+                    <div class="category  p-5">
+                        <h3>category</h3>
+                        {% for cat in category %}
+                        <div>
+                            <ul class="navbar-nav mb-2 mb-lg-0 ">
+                                <li><a class="dropdown-item" href="{{ cat.get_url }}">{{ cat.category_name }}</a></li>
                             </ul>
                         </div>
                         {% endfor %}
@@ -60,7 +71,11 @@
                                 <h5><strong class="product-price">₹{{ product.price}}</strong></h5>
                             </a>
                             <div class="d-flex justify-content-between ">
-                                <a href="{% url 'add_cart' product.id %}" class="btn btn-sm btn-primary">Add to cart</a>
+                                {% if in_cart %}
+                                    <a href="{% url 'cart' %}" class="btn btn-sm btn-primary">Go to cart</a>
+                                {% else %}
+                                    <a href="{% url 'add_cart' product.id %}" class="btn btn-sm btn-primary">Add to cart</a>
+                                {% endif %}
                                 <a href="{% url 'add_to_wishlist' product.id %}" class="btn btn-sm btn-primary fa fa-heart"></a>
                             </div>
                         </div>
