@@ -86,18 +86,16 @@ def shop(request, category_slug=None, sub_category_slug=None):
 
 
 def all_products(request):
-    products = Product.objects.all().filter(is_available=True).order_by('id')
+    category = Category.objects.all()
     min_price = Product.objects.all().aggregate(Min('price'))
     max_price = Product.objects.all().aggregate(Max('price'))
-    category = Category.objects.all()
-
     FilterPrice = request.GET.get('FilterPrice')
     if FilterPrice:
         print(FilterPrice)
         Int_FilterPrice = int(FilterPrice)
         products = Product.objects.filter(price__lte=Int_FilterPrice)
     else:
-        products = Product.objects.all()
+        products = Product.objects.all().filter(is_available=True).order_by('id')
 
     paginator = Paginator(products, 6)
     page = request.GET.get('page')
